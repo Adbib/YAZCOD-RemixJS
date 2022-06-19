@@ -1,0 +1,41 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
+
+model Products{
+   id String @id @default(auto()) @map("_id") @db.ObjectId
+  title String @unique
+  desc String?
+  img String? @default("https://ik.imagekit.io/yadbib/default-placeholder-1024x1024-570x760-1654608627073_4FPYhRDNR.png")
+  price Int
+  category String? @default("Uncategorized")
+  blockedCountries  String[]
+  priceByCountry Int[]
+  createdAt   DateTime @default(now()) 
+  updatedAt   DateTime @updatedAt 
+}
+
+model Configs{
+     id String @id @default(auto()) @map("_id") @db.ObjectId
+
+  siteTitle String @unique @default("YAZCOD")
+  siteDescription String? @default("Anothor store")
+  siteKeywords Json?
+  siteLogo String? @default("https://ik.imagekit.io/yadbib/default-placeholder-1024x1024-570x760-1654608627073_4FPYhRDNR.png")
+siteCover String? @default("https://ik.imagekit.io/yadbib/default-placeholder-1024x1024-570x760-1654608627073_4FPYhRDNR.png")
+topMessage Json? @default("{\"message\":\"Welcome to YAZCOD\",\"active\":true}")
+menus Json? @default("[{\"name\":\"Home\",\"link\":\"/\"},{\"name\":\"About\",\"link\":\"/about\"},{\"name\":\"Contact\",\"link\":\"/contact\"}]")
+  
+  createdAt   DateTime @default(now()) 
+  updatedAt   DateTime @updatedAt 
+  singleProduct Json? @default("{\"chekcoutMode\":\"OneClick\",\"forms\":[{\"name\":\"Name\",\"type\":\"text\",\"required\":true},{\"name\":\"Email\",\"type\":\"email\",\"required\":false},{\"name\":\"Phone\",\"type\":\"text\",\"required\":true},{\"name\":\"Address\",\"type\":\"text\",\"required\":true}]}")
+}

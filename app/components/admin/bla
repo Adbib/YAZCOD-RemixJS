@@ -1,0 +1,179 @@
+import { Link, useLocation } from "@remix-run/react";
+import { Accordion, Badge, Image, Nav } from "@themesberg/react-bootstrap";
+import React, { useState } from "react";
+import { Dropdown, DropdownButton, NavDropdown } from "react-bootstrap";
+
+type Props = {};
+
+export default function SideBar({}: Props) {
+  const location = useLocation();
+  const { pathname } = location;
+  const [show, setShow] = useState(false);
+  const showClass = show ? "show" : "";
+
+  const onCollapse = () => setShow(!show);
+  const NavItem = (props: any) => {
+    const {
+      title,
+      link,
+      external,
+      target,
+      icon,
+      image,
+      badgeText,
+      badgeBg = "secondary",
+      badgeColor = "primary",
+    } = props;
+    const classNames = badgeText
+      ? "d-flex justify-content-start align-items-center justify-content-between"
+      : "";
+    const navItemClassName = link === pathname ? "active" : "";
+    const linkProps = external ? { href: link } : { as: Link, to: link };
+
+    return (
+      <Nav.Item className={navItemClassName} onClick={() => setShow(false)}>
+        <Nav.Link {...linkProps} target={target} className={classNames}>
+          <span>
+            {icon ? (
+              <span className="sidebar-icon">
+                {/* <FontAwesomeIcon icon={icon} />{" "} */}
+              </span>
+            ) : null}
+            {image ? (
+              <Image
+                src={image}
+                width={20}
+                height={20}
+                className="sidebar-icon svg-icon"
+              />
+            ) : null}
+
+            <span className="sidebar-text">{title}</span>
+          </span>
+          {badgeText ? (
+            <Badge
+              pill
+              bg={badgeBg}
+              text={badgeColor}
+              className="badge-md notification-count ms-2"
+            >
+              {badgeText}
+            </Badge>
+          ) : null}
+        </Nav.Link>
+      </Nav.Item>
+    );
+  };
+  const CollapsableNavItem = (props: any) => {
+    const location = useLocation();
+    const { pathname } = location;
+    const { eventKey, title, icon, children = null } = props;
+    const defaultKey = pathname.indexOf(eventKey) !== -1 ? eventKey : "";
+
+    return (
+      <Accordion as={Nav.Item} defaultActiveKey={defaultKey}>
+        <Accordion.Item eventKey={eventKey}>
+          <Accordion.Button
+            as={Nav.Link}
+            className="d-flex justify-content-between align-items-center"
+          >
+            <span>
+              <span className="sidebar-icon">
+                {/* <FontAwesomeIcon icon={icon} />{" "} */}
+              </span>
+              <span className="sidebar-text">{title}</span>
+            </span>
+          </Accordion.Button>
+          <Accordion.Body className="multi-level">
+            <Nav className="flex-column">{children}</Nav>
+          </Accordion.Body>
+        </Accordion.Item>
+      </Accordion>
+    );
+  };
+  return (
+    <div className="col-auto col-md-3 col-xl-2 px-sm-2 px-0 bg-dark">
+      <div className="d-flex flex-column align-items-center align-items-sm-start px-3 pt-2 text-white min-vh-100">
+        <Link
+          to="/"
+          className="d-flex align-items-center pb-3 mb-md-0 me-md-auto text-white text-decoration-none"
+        >
+          <span className="fs-5 d-none d-sm-inline">Menu</span>
+        </Link>
+        <ul
+          className="nav nav-pills flex-column mb-sm-auto mb-0 align-items-center align-items-sm-start"
+          id="menu"
+        >
+          <li className="nav-item">
+            <Link to="#" className="nav-link align-middle px-0">
+              <i className="fs-4 bi-house"></i>{" "}
+              <span className="ms-1 d-none d-sm-inline">Home</span>
+            </Link>
+          </li>
+        </ul>
+        {/* <li> */}
+        <CollapsableNavItem
+          eventKey="orders/"
+          title="Orders"
+          icon={"faHandHoldingUsd"}
+        >
+          <NavItem
+            title="Orders"
+            icon={"faHandHoldingUsd"}
+            link="/admin/orders"
+          />
+          <NavItem title="Add Orders" icon={"faHandHoldingUsd"} link="add" />
+        </CollapsableNavItem>
+        {/* </li> */}
+
+        <hr />
+        <div className="dropdown pb-4">
+          <Link
+            to="#"
+            className="d-flex align-items-center text-white text-decoration-none dropdown-toggle"
+            id="dropdownUser1"
+            data-bs-toggle="dropdown"
+            aria-expanded="false"
+          >
+            <img
+              src="https://github.com/mdo.png"
+              alt="hugenerd"
+              width="30"
+              height="30"
+              className="rounded-circle"
+            />
+            <span className="d-none d-sm-inline mx-1">loser</span>
+          </Link>
+          <ul
+            className="dropdown-menu dropdown-menu-dark text-small shadow"
+            aria-labelledby="dropdownUser1"
+          >
+            <li>
+              <Link className="dropdown-item" to="#">
+                New project...
+              </Link>
+            </li>
+            <li>
+              <Link className="dropdown-item" to="#">
+                Settings
+              </Link>
+            </li>
+            <li>
+              <Link className="dropdown-item" to="#">
+                Profile
+              </Link>
+            </li>
+            <li>
+              <hr className="dropdown-divider" />
+            </li>
+            <li>
+              <Link className="dropdown-item" to="#">
+                Sign out
+              </Link>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  );
+}

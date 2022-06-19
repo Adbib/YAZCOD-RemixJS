@@ -1,0 +1,25 @@
+.nav-link {
+  color: white !important;
+}
+
+.breadcrumb-item + .breadcrumb-item::before {
+  content: "\F280";
+  font-weight: 900;
+  color: #66799e;
+  font-family: "bootstrap-icons";
+}
+.breadcrumb-item,
+.breadcrumb-item a {
+  color: #66799e;
+  font-weight: 400;
+  font-size: 0.75rem;
+}
+.breadcrumb-info.breadcrumb-transparent .breadcrumb-item.active {
+  color: #0948b3;
+}
+.form-control::file-selector-button {
+  padding: 20px;
+}
+.parameter-tabs .nav-link {
+  color: black !important;
+}

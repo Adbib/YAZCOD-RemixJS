@@ -1,0 +1,13 @@
+input,
+textarea,
+select {
+  border: 1.5px solid #f0f0f0 !important;
+  padding: 13px !important;
+}
+.form-check-input {
+  padding: 0px !important;
+}
+.form-control:focus {
+  border: 2px solid black !important;
+  box-shadow: none !important;
+}

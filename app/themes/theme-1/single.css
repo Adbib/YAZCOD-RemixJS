@@ -1,0 +1,20 @@
+input,
+textarea {
+  border: 1.5px solid #f0f0f0 !important;
+  padding: 15px !important;
+}
+
+.carousel,
+.carousel-item > img {
+  height: 500px;
+}
+
+.carousel h3,
+p {
+  color: black;
+}
+
+.carousel-control-prev-icon,
+.carousel-control-next-icon {
+  background-color: #803160;
+}

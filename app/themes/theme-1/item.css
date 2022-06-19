@@ -1,0 +1,28 @@
+.card:hover .img-thum {
+  border-color: #803160;
+}
+
+.card:hover {
+  border-color: #803160;
+}
+.card,
+.img-thum {
+  border: 2px solid #f0f0f0;
+}
+.img-thum {
+  border-top: none;
+  border-right: none;
+  border-left: none;
+}
+.btn-outline-primary {
+  border-color: #803160;
+  color: #803160;
+}
+.btn-outline-primary:hover {
+  background-color: #803160;
+  color: #f0f0f0;
+  border-color: #803160;
+}
+/* .card > a:hover {
+  border-bottom: 1px solid red !important;
+} */
